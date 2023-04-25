@@ -6,7 +6,7 @@ const path = require('path')
 const app = express()
 const porta = 443
 
-app.use(session({secret:1234567890}))
+app.use(session({secret:'1234567890'}))
 
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -15,7 +15,7 @@ let senha = '1234'
 
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html');
-app.set('views', path.join(__dirname, '/'))
+app.set('views', path.join(__dirname, './'))
 
 app.get('/', (req,res) => {
   if(req.session.login){
@@ -29,9 +29,9 @@ app.get('/', (req,res) => {
 
 app.post('/', (req,res) => {
   if (req.body.password == senha && req.body.login == login){
-    console.log('Usuários logado com sucesso!')
+    console.log('Usuário logado com sucesso!')
     req.session.login = login
-  res.sender('logado')
+  res.render('logado')
   }
   else{
   res.render('home')  
